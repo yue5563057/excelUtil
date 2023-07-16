@@ -1,6 +1,8 @@
 package com.dongyue.util.Excel;
 
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -12,11 +14,22 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import com.dongyue.util.StringUtil;
+import com.dongyue.util.anno.StandardExcel;
 
 /**
  * @author 东岳
  */
-public class ExcelModelUtils<T> {
+public class ExcelModelUtils<T> implements StandardExcelParse<T> {
+
+    @Override
+    public List<T> standardExcelToList(File file, Class<T> tClass) {
+        try {
+            List<List<String>> lists = ParseExcelUtil.parseExcel(file);
+            return standardExcelToList(lists,tClass);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     /**
      * 解析excle成为对象
@@ -29,12 +42,13 @@ public class ExcelModelUtils<T> {
      * @throws NoSuchMethodException
      * @throws NoSuchFieldException
      */
-    public List<T> parseList(List<List<String>> list, Class<T> tClass) throws IllegalAccessException, InstantiationException, InvocationTargetException, NoSuchMethodException, NoSuchFieldException {
+    @Override
+    public List<T> standardExcelToList(List<List<String>> list, Class<T> tClass)  {
         List<T> returnList = new ArrayList<>();
         Field[] declaredFields = tClass.getDeclaredFields();
         Map<Integer, String> fieldOrder = new HashMap<>();
         for (Field declaredField : declaredFields) {
-            MyExcelAnno annotation = declaredField.getAnnotation(MyExcelAnno.class);
+            StandardExcel annotation = declaredField.getAnnotation(StandardExcel.class);
             if (annotation == null) {
                 continue;
             }
@@ -42,66 +56,77 @@ public class ExcelModelUtils<T> {
             fieldOrder.put(value, declaredField.getName());
         }
         for (List<String> strings : list) {
-            //行 先要获取构造方法
-            Constructor constructor = tClass.getConstructor();
-            // 实例化
-            T t = (T) constructor.newInstance();
-            for (int i = 0; i < strings.size(); i++) {
-                String fileName = fieldOrder.get(i);
-                if(StringUtil.isNull(fileName)){
-                    continue;
+            try {
+                //行 先要获取构造方法
+                Constructor constructor = tClass.getConstructor();
+                // 实例化
+                T t = (T) constructor.newInstance();
+                for (int i = 0; i < strings.size(); i++) {
+                    String fileName = fieldOrder.get(i);
+                    if(StringUtil.isNull(fileName)){
+                        continue;
+                    }
+                    Field field = tClass.getDeclaredField(fileName);
+                    field.setAccessible(true);
+                    Class<?> type = field.getType();
+                    if (type.isAssignableFrom(Integer.class)) {
+                        field.set(t, Integer.valueOf(strings.get(i)));
+                    } else if (type.isAssignableFrom(LocalDateTime.class)) {
+                        StandardExcel annotation = field.getAnnotation(StandardExcel.class);
+                        DateTimeFormatter isoLocalDateTime = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+                        if (StringUtil.isNotNull(annotation.formart())) {
+                            isoLocalDateTime = DateTimeFormatter.ofPattern(annotation.formart());
+                        }
+                        field.set(t, LocalDateTime.parse(strings.get(i), isoLocalDateTime));
+                    } else if (type.isAssignableFrom(LocalDate.class)) {
+                        StandardExcel annotation = field.getAnnotation(StandardExcel.class);
+                        DateTimeFormatter isoLocalDate = DateTimeFormatter.ISO_LOCAL_DATE;
+                        if (StringUtil.isNotNull(annotation.formart())) {
+                            isoLocalDate = DateTimeFormatter.ofPattern(annotation.formart());
+                        }
+                        field.set(t, LocalDateTime.parse(strings.get(i), isoLocalDate));
+                    } else if (type.isAssignableFrom(Date.class)) {
+                        StandardExcel annotation = field.getAnnotation(StandardExcel.class);
+                        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        if (StringUtil.isNotNull(annotation.formart())) {
+                            format = new SimpleDateFormat(annotation.formart());
+                        }
+                        try {
+                            field.set(t, format.parse(strings.get(i)));
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                    } else if (type.isAssignableFrom(Boolean.class)) {
+                        field.set(t, Boolean.valueOf(strings.get(i)));
+                    } else if (type.isAssignableFrom(BigDecimal.class)) {
+                        field.set(t, new BigDecimal(strings.get(i)));
+                    } else if (type.isAssignableFrom(Long.class)) {
+                        field.set(t, Long.valueOf(strings.get(i)));
+                    } else if (type.isAssignableFrom(Short.class)) {
+                        field.set(t, Short.valueOf(strings.get(i)));
+                    } else if (type.isAssignableFrom(Byte.class)) {
+                        field.set(t, Byte.valueOf(strings.get(i)));
+                    } else if (type.isAssignableFrom(Float.class)) {
+                        field.set(t, Float.valueOf(strings.get(i)));
+                    } else if (type.isAssignableFrom(Double.class)) {
+                        field.set(t, Double.valueOf(strings.get(i)));
+                    } else {
+                        field.set(t, strings.get(i));
+                    }
                 }
-                Field field = tClass.getDeclaredField(fileName);
-                field.setAccessible(true);
-                Class<?> type = field.getType();
-                if (type.isAssignableFrom(Integer.class)) {
-                    field.set(t, Integer.valueOf(strings.get(i)));
-                } else if (type.isAssignableFrom(LocalDateTime.class)) {
-                    MyExcelAnno annotation = field.getAnnotation(MyExcelAnno.class);
-                    DateTimeFormatter isoLocalDateTime = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
-                    if (StringUtil.isNotNull(annotation.formart())) {
-                        isoLocalDateTime = DateTimeFormatter.ofPattern(annotation.formart());
-                    }
-                    field.set(t, LocalDateTime.parse(strings.get(i), isoLocalDateTime));
-                } else if (type.isAssignableFrom(LocalDate.class)) {
-                    MyExcelAnno annotation = field.getAnnotation(MyExcelAnno.class);
-                    DateTimeFormatter isoLocalDate = DateTimeFormatter.ISO_LOCAL_DATE;
-                    if (StringUtil.isNotNull(annotation.formart())) {
-                        isoLocalDate = DateTimeFormatter.ofPattern(annotation.formart());
-                    }
-                    field.set(t, LocalDateTime.parse(strings.get(i), isoLocalDate));
-                } else if (type.isAssignableFrom(Date.class)) {
-                    MyExcelAnno annotation = field.getAnnotation(MyExcelAnno.class);
-                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    if (StringUtil.isNotNull(annotation.formart())) {
-                        format = new SimpleDateFormat(annotation.formart());
-                    }
-                    try {
-                        field.set(t, format.parse(strings.get(i)));
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                } else if (type.isAssignableFrom(Boolean.class)) {
-                    field.set(t, Boolean.valueOf(strings.get(i)));
-                } else if (type.isAssignableFrom(BigDecimal.class)) {
-                    field.set(t, new BigDecimal(strings.get(i)));
-                } else if (type.isAssignableFrom(Long.class)) {
-                    field.set(t, Long.valueOf(strings.get(i)));
-                } else if (type.isAssignableFrom(Short.class)) {
-                    field.set(t, Short.valueOf(strings.get(i)));
-                } else if (type.isAssignableFrom(Byte.class)) {
-                    field.set(t, Byte.valueOf(strings.get(i)));
-                } else if (type.isAssignableFrom(Float.class)) {
-                    field.set(t, Float.valueOf(strings.get(i)));
-                } else if (type.isAssignableFrom(Double.class)) {
-                    field.set(t, Double.valueOf(strings.get(i)));
-                } else {
-                    field.set(t, strings.get(i));
-                }
+                returnList.add(t);
+            }catch (Exception e){
+                e.printStackTrace();
             }
-            returnList.add(t);
+
         }
         return returnList;
+    }
+
+    @Override
+    public Set<T> standardExcelToSet(List<List<String>> list, Class<T> tClass) {
+        List<T> ts = standardExcelToList(list,tClass);
+        return new HashSet<>(ts);
     }
 
 
