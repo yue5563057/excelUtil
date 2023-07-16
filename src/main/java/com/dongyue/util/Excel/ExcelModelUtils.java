@@ -13,8 +13,22 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import com.dongyue.util.StringUtil;
 
+/**
+ * @author 东岳
+ */
 public class ExcelModelUtils<T> {
 
+    /**
+     * 解析excle成为对象
+     * @param list 经过poi解析后的数据集合
+     * @param tClass 需要转换的对象
+     * @return 转换成功的对象集合
+     * @throws IllegalAccessException
+     * @throws InstantiationException
+     * @throws InvocationTargetException
+     * @throws NoSuchMethodException
+     * @throws NoSuchFieldException
+     */
     public List<T> parseList(List<List<String>> list, Class<T> tClass) throws IllegalAccessException, InstantiationException, InvocationTargetException, NoSuchMethodException, NoSuchFieldException {
         List<T> returnList = new ArrayList<>();
         Field[] declaredFields = tClass.getDeclaredFields();
@@ -34,6 +48,9 @@ public class ExcelModelUtils<T> {
             T t = (T) constructor.newInstance();
             for (int i = 0; i < strings.size(); i++) {
                 String fileName = fieldOrder.get(i);
+                if(StringUtil.isNull(fileName)){
+                    continue;
+                }
                 Field field = tClass.getDeclaredField(fileName);
                 field.setAccessible(true);
                 Class<?> type = field.getType();
