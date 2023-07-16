@@ -74,4 +74,9 @@ public class ParseExcelUtil {
         FileInputStream fileInputStream = new FileInputStream(file);
         return parseExcel(fileInputStream, startRow, 0);
     }
+
+    public static List<List<String>> parseExcel(File file, Integer startRow,Integer sheetNumber) throws IOException {
+        FileInputStream fileInputStream = new FileInputStream(file);
+        return parseExcel(fileInputStream, startRow, sheetNumber);
+    }
 }

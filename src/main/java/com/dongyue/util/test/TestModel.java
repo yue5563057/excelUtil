@@ -1,13 +1,14 @@
 package com.dongyue.util.test;
 
 import com.dongyue.util.anno.StandardExcel;
-
+import com.dongyue.util.anno.StandardExcelAttr;
+@StandardExcel(startRow = 0,sheetNumber=1)
 public class TestModel {
-    @StandardExcel(excelColumn = 0)
+    @StandardExcelAttr(excelColumn = 0)
     String number1;
-    @StandardExcel(excelColumn = 1)
+    @StandardExcelAttr(excelColumn = 1)
     String number2;
-    @StandardExcel(excelColumn = 2)
+    @StandardExcelAttr(excelColumn = 2)
     String number3;
 
 

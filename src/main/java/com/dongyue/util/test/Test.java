@@ -14,8 +14,7 @@ public class Test {
 
     public static void main(String[] args) throws IOException {
         StandardExcelParse<TestModel> standard = ExcelUtilFactory.getStandard();
-        List<List<String>> lists = ParseExcelUtil.parseExcel(new File("C:\\Users\\Administrator\\Desktop\\哆啦5月8号按状态修改.xls"),1);
-        List<TestModel> testModels = standard.standardExcelToList(lists, TestModel.class);
+        List<TestModel> testModels = standard.standardExcelToList(new File("C:\\Users\\Administrator\\Desktop\\哆啦5月8号按状态修改.xls"), TestModel.class);
         for (TestModel testModel : testModels) {
             System.out.println(testModel.toString());
         }

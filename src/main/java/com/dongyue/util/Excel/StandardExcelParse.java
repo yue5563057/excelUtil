@@ -1,6 +1,7 @@
 package com.dongyue.util.Excel;
 
 import java.io.File;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Set;
 
@@ -13,7 +14,7 @@ public interface StandardExcelParse<T> {
 
      List<T> standardExcelToList(File file, Class<T> tClass);
 
-
+     List<T> standardExcelToList(InputStream file, Class<T> tClass);
 
      List<T> standardExcelToList(List<List<String>> list, Class<T> tClass);
 
