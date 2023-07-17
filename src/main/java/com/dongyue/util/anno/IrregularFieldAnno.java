@@ -6,17 +6,17 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- *  异形表格解析
- *
  * @author 东岳
  */
-@Target({ElementType.TYPE})
+@Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface IrregularExcel {
-
-    /**标题*/
-    String title();
-    /**工作薄名称*/
-    String sheetName() default "sheet1";
-
+public @interface IrregularFieldAnno {
+    /**所处第几行*/
+    int row();
+    /**所处第几列*/
+    int cloumn();
+    /**跨行合并*/
+    int rowspan() default 0;
+    /**跨列合并*/
+    int colspan() default 0;
 }
