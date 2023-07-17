@@ -21,7 +21,7 @@ import com.dongyue.util.anno.StandardExcelAttr;
 /**
  * @author 东岳
  */
-public class ExcelModelUtils<T> implements StandardExcelParse<T> {
+public class StandardExcelParseUtils<T> implements StandardExcelParse<T> {
 
     @Override
     public List<T> standardExcelToList(File file, Class<T> tClass) {

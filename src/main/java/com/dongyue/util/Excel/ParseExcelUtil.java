@@ -29,30 +29,37 @@ public class ParseExcelUtil {
             }
             List<String> list = new ArrayList();
             // 单元格
-            for (Cell cell : row) {
-                switch (cell.getCellType()) {
-                    case STRING:
-                        list.add(cell.getRichStringCellValue().getString());
-                        break;
-                    case NUMERIC:
-                        if (DateUtil.isCellDateFormatted(cell)) {
-                            list.add(cell.getDateCellValue().toString());
-                        } else {
-                            list.add(cell.getNumericCellValue() + "");
-                        }
-                        break;
-                    case BOOLEAN:
-                        list.add(cell.getBooleanCellValue() + "");
-                        break;
-                    case FORMULA:
-                        list.add(cell.getCellFormula() + "");
-                        break;
-                    case BLANK:
-                        list.add("");
-                        break;
-                    default:
-                        list.add("");
+            short lastCellNum = row.getLastCellNum();
+            for (int i = 0; i <row.getLastCellNum(); i++) {
+                Cell cell = row.getCell(i);
+                if(cell!=null){
+                    switch (cell.getCellType()) {
+                        case STRING:
+                            list.add(cell.getRichStringCellValue().getString());
+                            break;
+                        case NUMERIC:
+                            if (DateUtil.isCellDateFormatted(cell)) {
+                                list.add(cell.getDateCellValue().toString());
+                            } else {
+                                list.add(cell.getNumericCellValue() + "");
+                            }
+                            break;
+                        case BOOLEAN:
+                            list.add(cell.getBooleanCellValue() + "");
+                            break;
+                        case FORMULA:
+                            list.add(cell.getCellFormula() + "");
+                            break;
+                        case BLANK:
+                            list.add("");
+                            break;
+                        default:
+                            list.add("");
+                    }
+                }else {
+                    list.add(null);
                 }
+
             }
             rowList.add(list);
         }

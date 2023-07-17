@@ -10,11 +10,11 @@ public class ExcelUtilFactory<T> {
 
 
     public static <T> StandardExcelParse<T> getStandard(){
-        return new ExcelModelUtils<T>();
+        return new StandardExcelParseUtils<T>();
     }
 
     public static <T> StandardExcelParse<T> getIrregular(){
-        return new ExcelModelUtils<T>();
+        return new StandardExcelParseUtils<T>();
     }
 
 }
