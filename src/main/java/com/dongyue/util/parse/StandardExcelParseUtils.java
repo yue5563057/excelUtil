@@ -20,6 +20,7 @@ import com.dongyue.util.anno.StandardExcelAttr;
 
 /**
  * @author 东岳
+ * @param <T> 需要成为的对象
  */
 public class StandardExcelParseUtils<T> implements StandardExcelParse<T> {
 
@@ -40,6 +41,8 @@ public class StandardExcelParseUtils<T> implements StandardExcelParse<T> {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
    public List<T> standardExcelToList(InputStream inputStream, Class<T> tClass){
         try {
             StandardExcel standardExcel = tClass.getAnnotation(StandardExcel.class);
@@ -62,11 +65,6 @@ public class StandardExcelParseUtils<T> implements StandardExcelParse<T> {
      * @param list 经过poi解析后的数据集合
      * @param tClass 需要转换的对象
      * @return 转换成功的对象集合
-     * @throws IllegalAccessException
-     * @throws InstantiationException
-     * @throws InvocationTargetException
-     * @throws NoSuchMethodException
-     * @throws NoSuchFieldException
      */
     @Override
     public List<T> standardExcelToList(List<List<String>> list, Class<T> tClass)  {

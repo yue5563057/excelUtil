@@ -3,8 +3,11 @@ package test;
 import com.dongyue.util.anno.IrregularExcel;
 import com.dongyue.util.anno.IrregularFieldAnno;
 import com.dongyue.util.anno.IrregularFieldNameAnno;
+import com.dongyue.util.anno.IrregularItem;
 
-@IrregularExcel(title = "测试导出异形表")
+import java.util.List;
+
+@IrregularExcel
 public class TestExportirregularModel {
 
     @IrregularFieldAnno(row =0,cloumn = 0,colspan = 10)
@@ -14,6 +17,17 @@ public class TestExportirregularModel {
     @IrregularFieldAnno(row = 3,cloumn = 3,rowspan = 1,colspan = 3)
     private String file;
 
+
+    public List<TestModel> getTestModelList() {
+        return testModelList;
+    }
+
+    public void setTestModelList(List<TestModel> testModelList) {
+        this.testModelList = testModelList;
+    }
+
+    @IrregularItem(startRow=20)
+    private List<TestModel> testModelList;
 
     public String getTitle() {
         return title;

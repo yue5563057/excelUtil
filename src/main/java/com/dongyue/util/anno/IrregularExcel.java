@@ -14,9 +14,11 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface IrregularExcel {
 
-    /**标题*/
-    String title();
-    /**工作薄名称*/
+
+    /**
+     * 工作薄名称
+     * @return 设置工作薄的名称
+     */
     String sheetName() default "sheet1";
 
 }

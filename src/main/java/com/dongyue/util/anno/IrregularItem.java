@@ -1,5 +1,6 @@
 package com.dongyue.util.anno;
 
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -8,11 +9,13 @@ import java.lang.annotation.Target;
 /**
  * @author 东岳
  */
-@Target({ElementType.METHOD, ElementType.FIELD})
+@Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface MyExcelAnno {
-    /**excel的列数 从0开始*/
-    int excelColumn();
-    /** 格式化的数据 */
-    String formart() default "";
+public @interface IrregularItem {
+
+    /**
+     * 列表开始的行数，从0开始计数
+     * @return 列表开始的行数
+     */
+    int startRow();
 }

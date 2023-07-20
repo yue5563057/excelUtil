@@ -26,7 +26,7 @@ public class MergeExcelUtil implements MergeExcel {
     }
 
 
-    public static List<List<String>> combineDataset(List<List<List<String>>> dataset) {
+    static List<List<String>> combineDataset(List<List<List<String>>> dataset) {
         List<List<String>> combinedDataset = new ArrayList<>();
         Integer startColumns = 0;
         int maxRows = getMaxRows(dataset);

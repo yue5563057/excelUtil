@@ -4,35 +4,35 @@ import com.dongyue.util.anno.StandardExcel;
 import com.dongyue.util.anno.StandardExcelAttr;
 @StandardExcel(startRow = 1,sheetNumber=0)
 public class TestModel {
-    @StandardExcelAttr(excelColumn = 0)
+    @StandardExcelAttr(excelColumn = 0,title = "number1")
     String number1;
-    @StandardExcelAttr(excelColumn = 1)
+    @StandardExcelAttr(excelColumn = 1,title = "number2")
     String number2;
-    @StandardExcelAttr(excelColumn = 2)
+    @StandardExcelAttr(excelColumn = 2,title = "number3")
     String number3;
-    @StandardExcelAttr(excelColumn = 3)
+    @StandardExcelAttr(excelColumn = 3,title = "number4")
     String number4;
-    @StandardExcelAttr(excelColumn = 4)
+    @StandardExcelAttr(excelColumn = 4,title = "number5")
     String number5;
-    @StandardExcelAttr(excelColumn = 5)
+    @StandardExcelAttr(excelColumn = 5,title = "number6")
     String number6;
-    @StandardExcelAttr(excelColumn =6)
+    @StandardExcelAttr(excelColumn =6,title = "number7")
     String number7;
-    @StandardExcelAttr(excelColumn = 7)
+    @StandardExcelAttr(excelColumn = 7,title = "number8")
     String number8;
-    @StandardExcelAttr(excelColumn = 8)
+    @StandardExcelAttr(excelColumn = 8,title = "number9")
     String number9;
-    @StandardExcelAttr(excelColumn = 9)
+    @StandardExcelAttr(excelColumn = 9,title = "number10")
     String number10;
-    @StandardExcelAttr(excelColumn = 10)
+    @StandardExcelAttr(excelColumn = 10,title = "number11")
     String number11;
-    @StandardExcelAttr(excelColumn = 11)
+    @StandardExcelAttr(excelColumn = 11,title = "number12")
     String number12;
-    @StandardExcelAttr(excelColumn = 12)
+    @StandardExcelAttr(excelColumn = 12,title = "number13")
     String number13;
-    @StandardExcelAttr(excelColumn = 13)
+    @StandardExcelAttr(excelColumn = 13,title = "number14")
     String number14;
-    @StandardExcelAttr(excelColumn = 14)
+    @StandardExcelAttr(excelColumn = 14,title = "number15")
     String number15;
 
     public String getNumber1() {

@@ -14,8 +14,22 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface StandardExcelAttr {
 
-    /**excel的列数 从0开始*/
+    /**
+     * excel的列数 从0开始
+     * @return 从0开始
+     */
     int excelColumn();
-    /** 格式化的数据 */
+
+    /**
+     * 格式化数据，如日期等需要做格式化处理时使用
+     * @return 格式化的样式
+     */
     String formart() default "";
+
+    /**
+     * 导出时列的标题
+     * @return 列的标题
+     */
+    String title() default "";
+
 }

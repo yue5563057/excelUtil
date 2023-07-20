@@ -12,18 +12,33 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface IrregularFieldNameAnno {
 
-    /**所处第几行*/
+    /**
+     * 行数从0开始数，字段所处的行数
+     * @return 字段所处第几行
+     */
     int row();
 
-    /**所处第几列*/
+    /**
+     * 列数从0开始数，字段所处的列数
+     * @return 字段所处第几列
+     */
     int cloumn();
 
-    /**跨行合并*/
+    /**
+     * 跨几行，默认一行不跨为0
+     * @return 跨几行
+     */
     int rowspan() default 0;
 
-    /**跨列合并*/
+    /**
+     * 跨几列，默认一列不跨为0
+     * @return 跨几列
+     */
     int colspan() default 0;
 
-    /**对应名称*/
+    /**
+     * 字段对应的跨单元格标题
+     * @return 标题的名称
+     */
     String title() default "";
 }

@@ -17,9 +17,8 @@ public class StringUtil {
 
     /**
      * 判断字符串是否为空或空值
-     *
-     * @param str
-     * @return
+     * @param str 需要检测的字符串
+     * @return true为空 false不为空
      */
     public static boolean isNull(String str) {
         return str == null || str.length() == 0;
@@ -28,8 +27,8 @@ public class StringUtil {
     /**
      * 判断字符串是否为空或空值
      *
-     * @param str
-     * @return
+     * @param str  需要检测的字符串
+     * @return true非空 false为空
      */
     public static boolean isNotNull(String str) {
         return str != null && str.length() > 0;
@@ -37,8 +36,7 @@ public class StringUtil {
 
     /**
      * 生成UUID(去掉中间横杠)
-     *
-     * @return
+     * @return 去除横杆的UUID字符串
      */
     public static String generId() {
         return UUID.randomUUID().toString().replaceAll("-", "");
@@ -46,8 +44,7 @@ public class StringUtil {
 
     /**
      * 生成6位数字字符串
-     *
-     * @return
+     * @return 6位数字字符串
      */
     public static String get6Code() {
         Random random = null;
