@@ -1,39 +1,29 @@
 package test;
 
-import com.dongyue.util.anno.StandardExcel;
 import com.dongyue.util.anno.StandardExcelAttr;
-@StandardExcel(startRow = 1,sheetNumber=0)
+
 public class TestModel {
-    @StandardExcelAttr(excelColumn = 0,title = "number1")
+    @StandardExcelAttr(excelColumn = 0, title = "列表标题1")
     String number1;
-    @StandardExcelAttr(excelColumn = 1,title = "number2")
+    @StandardExcelAttr(excelColumn = 1, title = "列表标题2")
     String number2;
-    @StandardExcelAttr(excelColumn = 2,title = "number3")
+    @StandardExcelAttr(excelColumn = 2, title = "列表标题3")
     String number3;
-    @StandardExcelAttr(excelColumn = 3,title = "number4")
+    @StandardExcelAttr(excelColumn = 3, title = "列表标题4")
     String number4;
-    @StandardExcelAttr(excelColumn = 4,title = "number5")
+    @StandardExcelAttr(excelColumn = 4, title = "列表标题5")
     String number5;
-    @StandardExcelAttr(excelColumn = 5,title = "number6")
+    @StandardExcelAttr(excelColumn = 5, title = "列表标题6")
     String number6;
-    @StandardExcelAttr(excelColumn =6,title = "number7")
+    @StandardExcelAttr(excelColumn = 6, title = "列表标题7")
     String number7;
-    @StandardExcelAttr(excelColumn = 7,title = "number8")
+    @StandardExcelAttr(excelColumn = 7, title = "列表标题8")
     String number8;
-    @StandardExcelAttr(excelColumn = 8,title = "number9")
+    @StandardExcelAttr(excelColumn = 8, title = "列表标题9")
     String number9;
-    @StandardExcelAttr(excelColumn = 9,title = "number10")
+    @StandardExcelAttr(excelColumn = 9, title = "列表标题10")
     String number10;
-    @StandardExcelAttr(excelColumn = 10,title = "number11")
-    String number11;
-    @StandardExcelAttr(excelColumn = 11,title = "number12")
-    String number12;
-    @StandardExcelAttr(excelColumn = 12,title = "number13")
-    String number13;
-    @StandardExcelAttr(excelColumn = 13,title = "number14")
-    String number14;
-    @StandardExcelAttr(excelColumn = 14,title = "number15")
-    String number15;
+
 
     public String getNumber1() {
         return number1;
@@ -115,45 +105,6 @@ public class TestModel {
         this.number10 = number10;
     }
 
-    public String getNumber11() {
-        return number11;
-    }
-
-    public void setNumber11(String number11) {
-        this.number11 = number11;
-    }
-
-    public String getNumber12() {
-        return number12;
-    }
-
-    public void setNumber12(String number12) {
-        this.number12 = number12;
-    }
-
-    public String getNumber13() {
-        return number13;
-    }
-
-    public void setNumber13(String number13) {
-        this.number13 = number13;
-    }
-
-    public String getNumber14() {
-        return number14;
-    }
-
-    public void setNumber14(String number14) {
-        this.number14 = number14;
-    }
-
-    public String getNumber15() {
-        return number15;
-    }
-
-    public void setNumber15(String number15) {
-        this.number15 = number15;
-    }
 
     @Override
     public String toString() {
@@ -168,11 +119,6 @@ public class TestModel {
                 ", number8='" + number8 + '\'' +
                 ", number9='" + number9 + '\'' +
                 ", number10='" + number10 + '\'' +
-                ", number11='" + number11 + '\'' +
-                ", number12='" + number12 + '\'' +
-                ", number13='" + number13 + '\'' +
-                ", number14='" + number14 + '\'' +
-                ", number15='" + number15 + '\'' +
                 '}';
     }
 }

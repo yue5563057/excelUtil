@@ -62,7 +62,7 @@ public class ExportIrregularExcelUtil {
             if (fieldAnno != null) {
                 try {
                     field.setAccessible(Boolean.TRUE);
-                    CellValue cellValue1  = createCellValue(fieldAnno.cloumn(),fieldAnno.row()
+                    CellValue cellValue1  = createCellValue(fieldAnno.row(),fieldAnno.cloumn()
                             ,field.get(t).toString(),fieldAnno.colspan(),fieldAnno.rowspan());
                     sheetMaxClomun = Math.max(fieldAnno.colspan()+fieldAnno.cloumn(),sheetMaxClomun);
                     sheetMaxRow = Math.max(fieldAnno.row(),sheetMaxRow);
@@ -95,7 +95,7 @@ public class ExportIrregularExcelUtil {
                             StandardExcelAttr standardExcelAttr = declaredField.getAnnotation(StandardExcelAttr.class);
                             //导出列表
                             int i = standardExcelAttr.excelColumn();
-                            maxcolumn = Math.max(i, maxcolumn);
+                            maxcolumn = Math.max(i+1, maxcolumn);
                             cloumnFeild.put(i, declaredField.getName());
                         }
                         sheetMaxClomun = Math.max(maxcolumn,sheetMaxClomun);
@@ -188,10 +188,6 @@ public class ExportIrregularExcelUtil {
         if (cell == null) {
             cell = row.createCell(cellValue.getColumn());
         }
-
-
-
-
 
         cell.setCellValue(cellValue.getValue());
         cell.setCellStyle(cellStyle);

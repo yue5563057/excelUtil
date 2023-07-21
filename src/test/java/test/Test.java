@@ -30,12 +30,17 @@ public class Test {
 //            System.out.println(testModel.toString());
 //        }
        export();
+//        test();
+//        MergeExcelUtil();
     }
 
     private static void export() {
         TestExportirregularModel testExportirregularModel = new TestExportirregularModel();
-        testExportirregularModel.setFile("测试值");
-        testExportirregularModel.setTitle("这是一个大标题。。。。。。。。。。。大标题");
+        testExportirregularModel.setTitle("这是由model生成的标题");
+        testExportirregularModel.setSn("测试编号001001100011");
+        testExportirregularModel.setName("这是由model生成的名称");
+        testExportirregularModel.setAddress("这是由model生成的地址");
+        testExportirregularModel.setListInfo("这是model生成的数据(下面是列表)");
         List<TestModel> testModels = new ArrayList<>();
         for (int i = 0; i < 25; i++) {
             TestModel testModel = new TestModel();
@@ -49,11 +54,6 @@ public class Test {
             testModel.setNumber8(i+"行");
             testModel.setNumber9(i+"行");
             testModel.setNumber10(i+"行");
-            testModel.setNumber11(i+"行");
-            testModel.setNumber12(i+"行");
-            testModel.setNumber13(i+"行");
-            testModel.setNumber14(i+"行");
-            testModel.setNumber15(i+"行");
             testModels.add(testModel);
         }
        testExportirregularModel.setTestModelList(testModels);
@@ -222,21 +222,27 @@ public class Test {
      * @throws FileNotFoundException
      */
     private static void MergeExcelUtil() throws FileNotFoundException {
-        StandardExcelParse<TestModel> standard = ExcelUtilFactory.getStandard();
-        File file = new File("C:\\Users\\东岳\\Desktop\\已失效无付款信息.xlsx");
-        File file1 = new File("C:\\Users\\东岳\\Desktop\\合作社管理员信息.xlsx");
-        File file2 = new File("C:\\Users\\东岳\\Desktop\\uploadExcel.xlsx");
+        File file = new File("C:\\Users\\东岳\\Desktop\\test1.xlsx");
+        File file1 = new File("C:\\Users\\东岳\\Desktop\\test2.xls");
         FileInputStream fileInputStream = new FileInputStream(file);
         FileInputStream fileInputStream1 = new FileInputStream(file1);
-        FileInputStream fileInputStream2 = new FileInputStream(file2);
         List<InputStream> fileList = new ArrayList<>();
         fileList.add(fileInputStream);
         fileList.add(fileInputStream1);
-        fileList.add(fileInputStream2);
         List<List<String>> lists = new MergeExcelUtil().mergeExcel(fileList);
-        List<TestModel> testModels1 = standard.standardExcelToList(lists, TestModel.class);
-        for (TestModel testModel : testModels1) {
+        StandardExcelParse<Test1> standard = ExcelUtilFactory.getStandard();
+        List<Test1> testModels1 = standard.standardExcelToList(lists, Test1.class);
+        for (Test1 testModel : testModels1) {
             System.out.println(testModel.toString());
+        }
+    }
+
+
+    public static void test(){
+        StandardExcelParse<Test1> standard = ExcelUtilFactory.getStandard();
+        List<Test1> test1s1 = standard.standardExcelToList(new File("C:\\Users\\东岳\\Desktop\\新建 XLS 工作表.xls"), Test1.class);
+        for (Test1 test1 : test1s1) {
+            System.out.println( test1.toString());
         }
     }
 

@@ -6,7 +6,8 @@
 
     <groupId>top.rdongyue</groupId>
     <artifactId>ExcelUtils</artifactId>
-    <version>1.0.1</version>
+    <!--<version>1.0.2</version>-->
+    <version>1.0.3</version>
 
     <name>ExcelUtils</name>
     <description>基于poi封装的解析excel到成对象</description>

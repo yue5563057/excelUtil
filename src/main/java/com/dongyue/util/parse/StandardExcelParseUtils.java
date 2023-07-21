@@ -17,6 +17,7 @@ import java.util.*;
 import com.dongyue.util.StringUtil;
 import com.dongyue.util.anno.StandardExcel;
 import com.dongyue.util.anno.StandardExcelAttr;
+import com.dongyue.util.exception.MyException;
 
 /**
  * @author 东岳
@@ -79,6 +80,7 @@ public class StandardExcelParseUtils<T> implements StandardExcelParse<T> {
             int value = annotation.excelColumn();
             fieldOrder.put(value, declaredField.getName());
         }
+        int row = 0;
         for (List<String> strings : list) {
             try {
                 //行 先要获取构造方法
@@ -111,7 +113,7 @@ public class StandardExcelParseUtils<T> implements StandardExcelParse<T> {
                         field.set(t, LocalDateTime.parse(strings.get(i), isoLocalDate));
                     } else if (type.isAssignableFrom(Date.class)) {
                         StandardExcelAttr annotation = field.getAnnotation(StandardExcelAttr.class);
-                        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        SimpleDateFormat format = new SimpleDateFormat();
                         if (StringUtil.isNotNull(annotation.formart())) {
                             format = new SimpleDateFormat(annotation.formart());
                         }
@@ -139,10 +141,17 @@ public class StandardExcelParseUtils<T> implements StandardExcelParse<T> {
                     }
                 }
                 returnList.add(t);
-            }catch (Exception e){
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (NoSuchFieldException e) {
                 e.printStackTrace();
             }
-
         }
         return returnList;
     }

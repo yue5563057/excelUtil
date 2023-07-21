@@ -10,12 +10,28 @@ import java.util.List;
 @IrregularExcel
 public class TestExportirregularModel {
 
-    @IrregularFieldAnno(row =0,cloumn = 0,colspan = 10)
+    @IrregularFieldAnno(row =0,cloumn = 0,colspan = 9)
     private String title;
 
-    @IrregularFieldNameAnno(row = 2,cloumn = 3,title = "测试导出字段名称",colspan = 1)
-    @IrregularFieldAnno(row = 3,cloumn = 3,rowspan = 1,colspan = 3)
-    private String file;
+    @IrregularFieldNameAnno(row = 2,cloumn = 0,title = "编号",rowspan = 1)
+    @IrregularFieldAnno(row = 2,cloumn = 1,colspan = 2,rowspan = 1)
+    private String sn;
+
+
+    @IrregularFieldNameAnno(row = 2,cloumn =4,title = "名称")
+    @IrregularFieldAnno(row = 2,cloumn = 5,colspan = 4)
+    private String name;
+
+
+    @IrregularFieldNameAnno(row = 3,cloumn =4,title = "地址")
+    @IrregularFieldAnno(row = 3,cloumn = 5,colspan = 4)
+    private String address;
+
+    @IrregularFieldAnno(row = 4,cloumn = 0,colspan = 9)
+    private String listInfo;
+
+    @IrregularItem(startRow=5)
+    private List<TestModel> testModelList;
 
 
     public List<TestModel> getTestModelList() {
@@ -26,8 +42,6 @@ public class TestExportirregularModel {
         this.testModelList = testModelList;
     }
 
-    @IrregularItem(startRow=20)
-    private List<TestModel> testModelList;
 
     public String getTitle() {
         return title;
@@ -37,11 +51,35 @@ public class TestExportirregularModel {
         this.title = title;
     }
 
-    public void setFile(String file) {
-        this.file = file;
+    public String getSn() {
+        return sn;
     }
 
-    public String getFile() {
-        return file;
+    public void setSn(String sn) {
+        this.sn = sn;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getListInfo() {
+        return listInfo;
+    }
+
+    public void setListInfo(String listInfo) {
+        this.listInfo = listInfo;
     }
 }

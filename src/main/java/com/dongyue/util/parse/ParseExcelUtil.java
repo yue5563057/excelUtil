@@ -1,13 +1,17 @@
 package com.dongyue.util.parse;
 
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.util.StringUtil;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class ParseExcelUtil {
 
@@ -41,7 +45,14 @@ public class ParseExcelUtil {
                             if (DateUtil.isCellDateFormatted(cell)) {
                                 list.add(cell.getDateCellValue().toString());
                             } else {
-                                list.add(cell.getNumericCellValue() + "");
+                                //处理小数和整数
+                                double numericCellValue = cell.getNumericCellValue();
+                                long round = Math.round(cell.getNumericCellValue());
+                                if(Double.parseDouble(round+".0")==numericCellValue){
+                                    list.add(round + "");
+                                }else {
+                                    list.add(numericCellValue + "");
+                                }
                             }
                             break;
                         case BOOLEAN:
