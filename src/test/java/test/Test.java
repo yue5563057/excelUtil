@@ -13,6 +13,8 @@ import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,9 +28,10 @@ public class Test {
 //        for (TestModel testModel : testModels) {
 //            System.out.println(testModel.toString());
 //        }
-        mergeStreet();
+//        mergeStreet();
 //        test();
 //        MergeExcelUtil();
+        export();
     }
 
     private  static void mergeStreet() throws FileNotFoundException {
@@ -48,14 +51,14 @@ public class Test {
         for (int i = 0; i < 25; i++) {
             TestModel testModel = new TestModel();
             testModel.setNumber1(i+"行");
-            testModel.setNumber2(i+"行");
-            testModel.setNumber3(i+"行");
+            testModel.setNumber2(i);
+            testModel.setNumber3(null);
             testModel.setNumber4(i+"行");
             testModel.setNumber5(i+"行");
-            testModel.setNumber6(i+"行");
-            testModel.setNumber7(i+"行");
-            testModel.setNumber8(i+"行");
-            testModel.setNumber9(i+"行");
+            testModel.setNumber6(LocalDateTime.now());
+            testModel.setNumber7(new BigDecimal(100.00));
+            testModel.setNumber8(121L);
+            testModel.setNumber9('K');
             testModel.setNumber10(i+"行");
             testModels.add(testModel);
         }

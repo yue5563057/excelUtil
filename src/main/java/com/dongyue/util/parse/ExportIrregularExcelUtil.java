@@ -103,7 +103,7 @@ public class ExportIrregularExcelUtil {
                             field.setAccessible(true);
                             List list1 = (List) field.get(t);
                             Integer listRow = irregularItem.startRow();
-                            for (Object o : list1) {
+                            for (Object item : list1) {
                                 if (listRow.equals(irregularItem.startRow())) {
                                     //第一行打印标题
                                     for (int i = 0; i < maxcolumn; i++) {
@@ -123,10 +123,10 @@ public class ExportIrregularExcelUtil {
                                         Field field1 = listItem.getDeclaredField(s);
                                         field1.setAccessible(true);
                                         CellValue cellValue1;
-                                        if(field1.get(0)==null){
+                                        if(field1.get(item)==null){
                                             cellValue1 = createCellValue(listRow,i,"",0,0);
                                         }else{
-                                           cellValue1 = createCellValue(listRow,i,field1.get(o).toString(),0,0);
+                                           cellValue1 = createCellValue(listRow,i,field1.get(item).toString(),0,0);
                                         }
                                         list.add(cellValue1);
                                     }

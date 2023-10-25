@@ -2,11 +2,14 @@ package test;
 
 import com.dongyue.util.anno.StandardExcelAttr;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
 public class TestModel {
     @StandardExcelAttr(excelColumn = 0, title = "列表标题1")
     String number1;
     @StandardExcelAttr(excelColumn = 1, title = "列表标题2")
-    String number2;
+    Integer number2;
     @StandardExcelAttr(excelColumn = 2, title = "列表标题3")
     String number3;
     @StandardExcelAttr(excelColumn = 3, title = "列表标题4")
@@ -14,13 +17,13 @@ public class TestModel {
     @StandardExcelAttr(excelColumn = 4, title = "列表标题5")
     String number5;
     @StandardExcelAttr(excelColumn = 5, title = "列表标题6")
-    String number6;
+    LocalDateTime number6;
     @StandardExcelAttr(excelColumn = 6, title = "列表标题7")
-    String number7;
+    BigDecimal number7;
     @StandardExcelAttr(excelColumn = 7, title = "列表标题8")
-    String number8;
+    Long number8;
     @StandardExcelAttr(excelColumn = 8, title = "列表标题9")
-    String number9;
+    Character number9;
     @StandardExcelAttr(excelColumn = 9, title = "列表标题10")
     String number10;
 
@@ -33,11 +36,11 @@ public class TestModel {
         this.number1 = number1;
     }
 
-    public String getNumber2() {
+    public Integer getNumber2() {
         return number2;
     }
 
-    public void setNumber2(String number2) {
+    public void setNumber2(Integer number2) {
         this.number2 = number2;
     }
 
@@ -65,35 +68,35 @@ public class TestModel {
         this.number5 = number5;
     }
 
-    public String getNumber6() {
+    public LocalDateTime getNumber6() {
         return number6;
     }
 
-    public void setNumber6(String number6) {
+    public void setNumber6(LocalDateTime number6) {
         this.number6 = number6;
     }
 
-    public String getNumber7() {
+    public BigDecimal getNumber7() {
         return number7;
     }
 
-    public void setNumber7(String number7) {
+    public void setNumber7(BigDecimal number7) {
         this.number7 = number7;
     }
 
-    public String getNumber8() {
+    public Long getNumber8() {
         return number8;
     }
 
-    public void setNumber8(String number8) {
+    public void setNumber8(Long number8) {
         this.number8 = number8;
     }
 
-    public String getNumber9() {
+    public Character getNumber9() {
         return number9;
     }
 
-    public void setNumber9(String number9) {
+    public void setNumber9(Character number9) {
         this.number9 = number9;
     }
 
