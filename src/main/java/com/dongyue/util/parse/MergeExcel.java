@@ -17,5 +17,9 @@ public interface MergeExcel {
      */
     List<List<String>> mergeExcel(List<InputStream> inputStreamList);
 
+    /**
+     * 将多个street合并成一个
+     */
+    List<List<String>> mergeStreetExcel(InputStream inputStream);
 
 }

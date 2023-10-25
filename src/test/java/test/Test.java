@@ -3,10 +3,7 @@ package test;
 import com.dongyue.util.StringUtil;
 import com.dongyue.util.anno.*;
 import com.dongyue.util.model.CellValue;
-import com.dongyue.util.parse.ExcelUtilFactory;
-import com.dongyue.util.parse.ExportIrregularExcelUtil;
-import com.dongyue.util.parse.MergeExcelUtil;
-import com.dongyue.util.parse.StandardExcelParse;
+import com.dongyue.util.parse.*;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
@@ -29,9 +26,15 @@ public class Test {
 //        for (TestModel testModel : testModels) {
 //            System.out.println(testModel.toString());
 //        }
-       export();
+        mergeStreet();
 //        test();
 //        MergeExcelUtil();
+    }
+
+    private  static void mergeStreet() throws FileNotFoundException {
+        File file = new File("C:\\Users\\东岳\\Desktop\\20230725.xlsx");
+        FileInputStream fileInputStream = new FileInputStream(file);
+        List<List<String>> lists = new MergeExcelUtil().mergeStreetExcel(fileInputStream);
     }
 
     private static void export() {

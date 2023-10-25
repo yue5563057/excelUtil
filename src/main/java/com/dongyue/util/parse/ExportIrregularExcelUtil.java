@@ -122,7 +122,12 @@ public class ExportIrregularExcelUtil {
                                     if (StringUtil.isNotNull(s)) {
                                         Field field1 = listItem.getDeclaredField(s);
                                         field1.setAccessible(true);
-                                        CellValue cellValue1 = createCellValue(listRow,i,field1.get(o).toString(),0,0);
+                                        CellValue cellValue1;
+                                        if(field1.get(0)==null){
+                                            cellValue1 = createCellValue(listRow,i,"",0,0);
+                                        }else{
+                                           cellValue1 = createCellValue(listRow,i,field1.get(o).toString(),0,0);
+                                        }
                                         list.add(cellValue1);
                                     }
                                 }

@@ -1,6 +1,10 @@
 package com.dongyue.util.parse;
 
 
+import com.dongyue.util.StringUtil;
+import com.dongyue.util.anno.StandardExcel;
+import com.dongyue.util.anno.StandardExcelAttr;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,14 +18,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import com.dongyue.util.StringUtil;
-import com.dongyue.util.anno.StandardExcel;
-import com.dongyue.util.anno.StandardExcelAttr;
-import com.dongyue.util.exception.MyException;
 
 /**
- * @author 东岳
  * @param <T> 需要成为的对象
+ * @author 东岳
  */
 public class StandardExcelParseUtils<T> implements StandardExcelParse<T> {
 
@@ -29,33 +29,33 @@ public class StandardExcelParseUtils<T> implements StandardExcelParse<T> {
     public List<T> standardExcelToList(File file, Class<T> tClass) {
         try {
             StandardExcel standardExcel = tClass.getAnnotation(StandardExcel.class);
-            List<List<String>> lists ;
-            if(standardExcel==null){
+            List<List<String>> lists;
+            if (standardExcel == null) {
                 lists = ParseExcelUtil.parseExcel(file);
-            }else {
+            } else {
                 int startRow = standardExcel.startRow();
                 int sheetNumber = standardExcel.sheetNumber();
-                lists = ParseExcelUtil.parseExcel(file,startRow,sheetNumber);
+                lists = ParseExcelUtil.parseExcel(file, startRow, sheetNumber);
             }
-            return standardExcelToList(lists,tClass);
+            return standardExcelToList(lists, tClass);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
     @Override
-   public List<T> standardExcelToList(InputStream inputStream, Class<T> tClass){
+    public List<T> standardExcelToList(InputStream inputStream, Class<T> tClass) {
         try {
             StandardExcel standardExcel = tClass.getAnnotation(StandardExcel.class);
-            List<List<String>> lists ;
-            if(standardExcel==null){
+            List<List<String>> lists;
+            if (standardExcel == null) {
                 lists = ParseExcelUtil.parseExcel(inputStream);
-            }else {
+            } else {
                 int startRow = standardExcel.startRow();
                 int sheetNumber = standardExcel.sheetNumber();
-                lists = ParseExcelUtil.parseExcel(inputStream,startRow,sheetNumber);
+                lists = ParseExcelUtil.parseExcel(inputStream, startRow, sheetNumber);
             }
-            return standardExcelToList(lists,tClass);
+            return standardExcelToList(lists, tClass);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -63,12 +63,13 @@ public class StandardExcelParseUtils<T> implements StandardExcelParse<T> {
 
     /**
      * 解析excle成为对象
-     * @param list 经过poi解析后的数据集合
+     *
+     * @param list   经过poi解析后的数据集合
      * @param tClass 需要转换的对象
      * @return 转换成功的对象集合
      */
     @Override
-    public List<T> standardExcelToList(List<List<String>> list, Class<T> tClass)  {
+    public List<T> standardExcelToList(List<List<String>> list, Class<T> tClass) {
         List<T> returnList = new ArrayList<>();
         Field[] declaredFields = tClass.getDeclaredFields();
         Map<Integer, String> fieldOrder = new HashMap<>();
@@ -89,7 +90,7 @@ public class StandardExcelParseUtils<T> implements StandardExcelParse<T> {
                 T t = (T) constructor.newInstance();
                 for (int i = 0; i < strings.size(); i++) {
                     String fileName = fieldOrder.get(i);
-                    if(StringUtil.isNull(fileName)){
+                    if (StringUtil.isNull(fileName)) {
                         continue;
                     }
                     Field field = tClass.getDeclaredField(fileName);
@@ -158,7 +159,7 @@ public class StandardExcelParseUtils<T> implements StandardExcelParse<T> {
 
     @Override
     public Set<T> standardExcelToSet(List<List<String>> list, Class<T> tClass) {
-        List<T> ts = standardExcelToList(list,tClass);
+        List<T> ts = standardExcelToList(list, tClass);
         return new HashSet<>(ts);
     }
 

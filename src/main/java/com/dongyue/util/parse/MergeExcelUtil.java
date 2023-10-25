@@ -1,5 +1,11 @@
 package com.dongyue.util.parse;
 
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -23,6 +29,27 @@ public class MergeExcelUtil implements MergeExcel {
         }
         List<List<String>> combineDataset = combineDataset(dataset);
         return combineDataset;
+    }
+
+    @Override
+    public List<List<String>> mergeStreetExcel(InputStream inputStream) {
+        Workbook workbook = null;
+        try {
+//            workbook = WorkbookFactory.create(inputStream);
+            workbook = new XSSFWorkbook(inputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        int numberOfSheets = workbook.getNumberOfSheets();
+        List<List<String>> list = new ArrayList<>();
+        for (int i = 0; i < numberOfSheets; i++) {
+            List<List<String>> lists = ParseExcelUtil.parseExcel(workbook, 0, i);
+            list.addAll(lists);
+        }
+        for (List<String> strings : list) {
+            System.out.println(strings);
+        }
+        return list;
     }
 
 

@@ -1,22 +1,21 @@
 package com.dongyue.util.parse;
 
 import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.util.StringUtil;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class ParseExcelUtil {
 
-    public static List<List<String>> parseExcel(InputStream inputStream, Integer startRow, Integer sheetIndex) throws IOException {
-        Workbook workbook = WorkbookFactory.create(inputStream);
+
+
+
+
+    public static List<List<String>> parseExcel(Workbook workbook,Integer  startRow,Integer sheetIndex){
         // 打开Excel中的第一个Sheet
         Sheet sheet = workbook.getSheetAt(sheetIndex);
         if (sheet == null) {
@@ -34,9 +33,9 @@ public class ParseExcelUtil {
             List<String> list = new ArrayList();
             // 单元格
             short lastCellNum = row.getLastCellNum();
-            for (int i = 0; i <row.getLastCellNum(); i++) {
+            for (int i = 0; i < row.getLastCellNum(); i++) {
                 Cell cell = row.getCell(i);
-                if(cell!=null){
+                if (cell != null) {
                     switch (cell.getCellType()) {
                         case STRING:
                             list.add(cell.getRichStringCellValue().getString());
@@ -48,9 +47,9 @@ public class ParseExcelUtil {
                                 //处理小数和整数
                                 double numericCellValue = cell.getNumericCellValue();
                                 long round = Math.round(cell.getNumericCellValue());
-                                if(Double.parseDouble(round+".0")==numericCellValue){
+                                if (Double.parseDouble(round + ".0") == numericCellValue) {
                                     list.add(round + "");
-                                }else {
+                                } else {
                                     list.add(numericCellValue + "");
                                 }
                             }
@@ -67,7 +66,7 @@ public class ParseExcelUtil {
                         default:
                             list.add("");
                     }
-                }else {
+                } else {
                     list.add(null);
                 }
 
@@ -77,6 +76,13 @@ public class ParseExcelUtil {
         return rowList;
     }
 
+
+
+    public static List<List<String>> parseExcel(InputStream inputStream, Integer startRow, Integer sheetIndex) throws IOException {
+        Workbook workbook = WorkbookFactory.create(inputStream);
+        return parseExcel(workbook,startRow,sheetIndex);
+    }
+
     public static List<List<String>> parseExcel(InputStream inputStream, Integer startRow) throws IOException {
         return parseExcel(inputStream, startRow, 0);
     }
@@ -84,16 +90,18 @@ public class ParseExcelUtil {
     public static List<List<String>> parseExcel(InputStream inputStream) throws IOException {
         return parseExcel(inputStream, 0, 0);
     }
+
     public static List<List<String>> parseExcel(File file) throws IOException {
         FileInputStream fileInputStream = new FileInputStream(file);
         return parseExcel(fileInputStream, 0, 0);
     }
+
     public static List<List<String>> parseExcel(File file, Integer startRow) throws IOException {
         FileInputStream fileInputStream = new FileInputStream(file);
         return parseExcel(fileInputStream, startRow, 0);
     }
 
-    public static List<List<String>> parseExcel(File file, Integer startRow,Integer sheetNumber) throws IOException {
+    public static List<List<String>> parseExcel(File file, Integer startRow, Integer sheetNumber) throws IOException {
         FileInputStream fileInputStream = new FileInputStream(file);
         return parseExcel(fileInputStream, startRow, sheetNumber);
     }
