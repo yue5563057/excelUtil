@@ -20,6 +20,20 @@ public @interface StandardExcelAttr {
      */
     int excelColumn();
 
+
+
+    /**
+     * 跨几行，默认一行不跨为0
+     * @return 跨几行
+     */
+    int rowspan() default 0;
+
+    /**
+     * 跨几列，默认一列不跨为0
+     * @return 跨几列
+     */
+    int colspan() default 0;
+
     /**
      * 格式化数据，如日期等需要做格式化处理时使用
      * @return 格式化的样式
@@ -31,5 +45,15 @@ public @interface StandardExcelAttr {
      * @return 列的标题
      */
     String title() default "";
+    /**
+     * 是否使用字段的标题
+     * @return 列的标题
+     */
+    boolean useListTitle() default false;
 
+    /**
+     * 继续遍历
+     * @return
+     */
+    boolean forIn() default false;
 }

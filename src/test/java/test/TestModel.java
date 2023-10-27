@@ -4,6 +4,7 @@ import com.dongyue.util.anno.StandardExcelAttr;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class TestModel {
     @StandardExcelAttr(excelColumn = 0, title = "列表标题1")
@@ -14,17 +15,17 @@ public class TestModel {
     String number3;
     @StandardExcelAttr(excelColumn = 3, title = "列表标题4")
     String number4;
-    @StandardExcelAttr(excelColumn = 4, title = "列表标题5")
-    String number5;
-    @StandardExcelAttr(excelColumn = 5, title = "列表标题6")
+    @StandardExcelAttr(excelColumn = 4,colspan = 2, useListTitle = true,forIn = true)
+    List<TestModelItem> number5;
+    @StandardExcelAttr(excelColumn = 7, title = "列表标题6")
     LocalDateTime number6;
-    @StandardExcelAttr(excelColumn = 6, title = "列表标题7")
+    @StandardExcelAttr(excelColumn = 8, title = "列表标题7")
     BigDecimal number7;
-    @StandardExcelAttr(excelColumn = 7, title = "列表标题8")
+    @StandardExcelAttr(excelColumn = 9, title = "列表标题8")
     Long number8;
-    @StandardExcelAttr(excelColumn = 8, title = "列表标题9")
+    @StandardExcelAttr(excelColumn = 10, title = "列表标题9")
     Character number9;
-    @StandardExcelAttr(excelColumn = 9, title = "列表标题10")
+    @StandardExcelAttr(excelColumn = 11, title = "列表标题10")
     String number10;
 
 
@@ -60,11 +61,11 @@ public class TestModel {
         this.number4 = number4;
     }
 
-    public String getNumber5() {
+    public List<TestModelItem> getNumber5() {
         return number5;
     }
 
-    public void setNumber5(String number5) {
+    public void setNumber5(List<TestModelItem> number5) {
         this.number5 = number5;
     }
 

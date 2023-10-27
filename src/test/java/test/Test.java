@@ -48,20 +48,37 @@ public class Test {
         testExportirregularModel.setAddress("这是由model生成的地址");
         testExportirregularModel.setListInfo("这是model生成的数据(下面是列表)");
         List<TestModel> testModels = new ArrayList<>();
-        for (int i = 0; i < 25; i++) {
+        for (int i = 0; i < 2; i++) {
             TestModel testModel = new TestModel();
             testModel.setNumber1(i+"行");
             testModel.setNumber2(i);
             testModel.setNumber3(null);
             testModel.setNumber4(i+"行");
-            testModel.setNumber5(i+"行");
+            ArrayList<TestModelItem> objects = new ArrayList<>();
+            for (int j = 0; j < 2; j++) {
+                TestModelItem testModelItem = new TestModelItem();
+                testModelItem.setNumber2("子节点"+j);
+                ArrayList<TestModelItem2> objects1 = new ArrayList<>();
+                for (int k = 0; k < 2; k++) {
+                    TestModelItem2 testModelItem2 = new TestModelItem2();
+                    testModelItem2.setNumber1("子子节点"+k);
+                    ArrayList<String> objects2 = new ArrayList<>();
+                    for (int l = 0; l < 2; l++) {
+                        objects2.add("l"+l);
+                    }
+                    testModelItem2.setNumber2(objects2);
+                    objects1.add(testModelItem2);
+                }
+                testModelItem.setNumber3(objects1);
+                objects.add(testModelItem);
+            }
+            testModel.setNumber5(objects);
             testModel.setNumber6(LocalDateTime.now());
             testModel.setNumber7(new BigDecimal(100.00));
             testModel.setNumber8(121L);
             testModel.setNumber9('K');
             testModel.setNumber10(i+"行");
-            testModels.add(testModel);
-        }
+            testModels.add(testModel);        }
        testExportirregularModel.setTestModelList(testModels);
         try {
             ExportIrregularExcelUtil.export(testExportirregularModel,new FileOutputStream("d://导出异形表.xlsx"));
